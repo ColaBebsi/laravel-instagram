@@ -6,7 +6,9 @@
             <img src="{{URL::asset('/images/img3.jpg')}}" alt="" class="rounded-circle w-100">
         </div>
         <div class="col-md-9">
-            <h1>{{ Auth::user()->name }}</h1>
+            {{-- <h1>{{ Auth::user()->username }}</h1> --}}
+            <h1>{{ $user->username }}</h1>
+            <a href="{{ url("profile/$user->id/edit") }}">Edit</a>
 
             <div class="d-flex mb-4">
                 <div class="pr-5"><strong>123</strong> posts</div>
