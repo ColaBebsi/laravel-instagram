@@ -41,7 +41,7 @@ class ProfileController extends Controller
         ]);
 
         // Update the currently authenticated user profile 
-        Auth::user()->profile->fill($validatedData)->save();
+        $user->profile->update($validatedData);
         
         return redirect("/profile/{$user->id}");
     }
