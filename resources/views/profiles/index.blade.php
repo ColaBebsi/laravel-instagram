@@ -30,10 +30,14 @@
     <div class="row pt-5">
         @foreach ($user->posts as $post)
             <div class="col-md-4 pb-4">
-                <img src="{{$post->image}}" alt="" class="w-100">
+                <a href="/post/{{ $post->id }}">
+                <img src="{{ $post->image }}" alt="{{ $post->caption }}" class="w-100">
+                </a>
             </div>
         @endforeach
     </div>
+
+
 </div>
 
 

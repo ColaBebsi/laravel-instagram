@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
 use JD\Cloudder\Facades\Cloudder;
@@ -9,6 +10,7 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
+    // Make all routes auth
     public function __construct()
     {
         $this->middleware('auth');
@@ -28,6 +30,7 @@ class PostController extends Controller
         Cloudder::upload($imagePath, null);
         
         // Get the image url and resize the image
+        // One could also set the options in cloudder.php
         $imageURL = Cloudder::show(Cloudder::getPublicId(), ["crop" => "fill", "width" => 250, "height" => 250]);
 
         // Validate request 
@@ -43,5 +46,10 @@ class PostController extends Controller
         ]);
 
         return redirect("/profile/" . Auth::id());
+    }
+
+    public function show(Post $post)
+    {
+        return view('posts.show', compact('post'));
     }
 }
