@@ -3,7 +3,7 @@
 <div class="container">
     <div class="row justify-content-md-center">
         <div class="col-md-3 pl-5">
-            <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20(30).jpg"  class="rounded-circle w-100">
+            <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20(30).jpg" class="rounded-circle w-100">
         </div>
         <div class="col-md-9 pl-5 pr-5">
             {{-- <h1>{{ Auth::user()->username }}</h1> --}}
@@ -14,7 +14,7 @@
                 <a href="{{ url("post/create") }}">Create new post</a>
             </div>
             <a href="{{ url("profile/$user->id/edit") }}">Edit profile</a>
-            
+
             <div class="d-flex mb-4 pt-2">
                 <div class="pr-5"><strong>123</strong> posts</div>
                 <div class="pr-5"><strong>123</strong> followers</div>
@@ -28,14 +28,14 @@
     </div>
 
     <div class="row pt-5">
-
         @foreach ($user->posts as $post)
             <div class="col-md-4 pb-4">
-                <img src="/storage/{{$post->image}}" alt="" class="w-100">
+                <img src="{{$post->image}}" alt="" class="w-100">
             </div>
         @endforeach
-       
     </div>
 </div>
-       
+
+
+
 @endsection

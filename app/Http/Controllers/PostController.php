@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
+use JD\Cloudder\Facades\Cloudder;
+use Illuminate\Http\Request;
+
 class PostController extends Controller
 {
     public function __construct()
@@ -16,24 +19,27 @@ class PostController extends Controller
         return view('posts.create');
     }
 
-    public function store() 
+    public function store(Request $request) 
     {
-        // Validate request data
+        // Get image path 
+        $imagePath = $request->file('image')->getRealPath();
+
+        // Upload image to Cloudinary
+        Cloudder::upload($imagePath, null);
+        
+        // Get the image url and resize the image
+        $imageURL = Cloudder::show(Cloudder::getPublicId(), ["crop" => "fill", "width" => 250, "height" => 250]);
+
+        // Validate request 
         $validatedData = request()->validate([
             'caption' => 'required',
-            'image' => ['required','image']
+            'image' => ['required', 'mimes:jpeg,bmp,jpg,png', 'between:1, 2000']
         ]);
 
-        // Store image in uploads directory
-        $imagePath = request('image')->store('uploads', 'public');
-
-        $resizedImage = Image::make("storage/{$imagePath}")->fit(1200, 1200)->save();
-        
-        // dd($resizedImage);
-
+        // Create post 
         Auth::user()->posts()->create([
             'caption' => $validatedData['caption'],
-            'image' => $imagePath
+            'image' => $imageURL
         ]);
 
         return redirect("/profile/" . Auth::id());
