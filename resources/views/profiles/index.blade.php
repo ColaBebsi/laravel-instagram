@@ -16,9 +16,9 @@
                 <div class="pr-5"><strong>123</strong> following</div>
             </div>
 
-            <div>{{ $user->profile->title }}</div>
-            <div>{{ $user->profile->description }}</div>
-            <div><a href="#">{{ $user->profile->url }}</a></div>
+            <div>{{ $user->profile->title ?? 'N/A' }}</div>
+            <div>{{ $user->profile->description ?? 'N/A' }}</div>
+            <div><a href="#">{{ $user->profile->url ?? 'N/A' }}</a></div>
         </div>
     </div>
 </div>
