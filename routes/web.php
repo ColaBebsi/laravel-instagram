@@ -23,8 +23,8 @@ Auth::routes();
 
 // Profile
 Route::get('/profile/{user}', [ProfileController::class, 'index'])->name('profile.show')->middleware('auth');
-Route::get('/profile/{id}/edit', [ProfileController::class, 'edit'])->name('profile.edit')->middleware('auth');
-Route::patch('/profile/{id}', [ProfileController::class, 'update'])->name('profile.update')->middleware('auth');
+Route::get('/profile/{user}/edit', [ProfileController::class, 'edit'])->name('profile.edit')->middleware('auth');
+Route::patch('/profile/{user}', [ProfileController::class, 'update'])->name('profile.update')->middleware('auth');
 
 // Post
 Route::get('/post/create', [PostController::class, 'create']);

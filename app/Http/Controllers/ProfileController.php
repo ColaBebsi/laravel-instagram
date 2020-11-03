@@ -24,16 +24,16 @@ class ProfileController extends Controller
     {
     }
 
-    public function edit($id)
+    public function edit(User $user)
     {
-        $user = User::findOrFail($id);
+        // $user = User::findOrFail($id);
 
         return view('profiles.edit', compact('user'));
     }
 
-    public function update($id)
+    public function update(User $user)
     {
-        $user = User::findOrFail($id);
+        // $user = User::findOrFail($id);
         // $user->update($request->all());
 
         // Validate request data
@@ -44,7 +44,7 @@ class ProfileController extends Controller
         ]);
 
         // Update the currently authenticated user profile 
-        $user->profile->update($validatedData);
+        Auth::user()->profile->update($validatedData);
         
         return redirect("/profile/{$user->id}");
     }
