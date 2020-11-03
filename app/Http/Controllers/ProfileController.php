@@ -31,8 +31,10 @@ class ProfileController extends Controller
         return view('profiles.edit', compact('user'));
     }
 
-    public function update(User $user)
+    public function update($id)
     {
+        $id = Auth::id();
+
         // Validate request data
         $validatedData = request()->validate([
             'title' => 'required',
@@ -41,8 +43,8 @@ class ProfileController extends Controller
         ]);
 
         // Update the currently authenticated user profile 
-        $user->profile->update($validatedData);
+        auth()->user()->profile->update($validatedData);
         
-        return redirect("/profile/{$user->id}");
+        return redirect("/profile/{$id}");
     }
 }
