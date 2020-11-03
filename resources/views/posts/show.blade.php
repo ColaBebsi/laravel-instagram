@@ -5,7 +5,7 @@
         <div class="card mb-3" style="max-width: 640px;">
             <div class="row no-gutters">
                 <div class="col-md-5">
-                    <img src="{{ $post->image}}" alt="{{ $post->caption }}">
+                    <img src="{{ $post->image}}" alt="{{ $post->caption }}" class="">
                 </div>
                 <div class="col-md-7">
                     <div class="card-body">

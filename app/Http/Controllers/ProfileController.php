@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+use JD\Cloudder\Facades\Cloudder;
+
 
 class ProfileController extends Controller
 {
@@ -20,31 +23,42 @@ class ProfileController extends Controller
         return view('profiles.index', compact('user'));
     }
 
-    public function create()
-    {
-    }
-
     public function edit(User $user)
     {
-        // $user = User::findOrFail($id);
+        $this->authorize('update', $user->profile);
 
         return view('profiles.edit', compact('user'));
     }
 
-    public function update(User $user)
+    public function update(Request $request ,User $user)
     {
-        // $user = User::findOrFail($id);
-        // $user->update($request->all());
+        $this->authorize('update', $user->profile);
 
         // Validate request data
         $validatedData = request()->validate([
             'title' => 'required',
             'description' => 'required',
             'url' => '',
+            'image' => ''
         ]);
 
+        
+        if (request('image')) {
+            $imagePath = $request->file('image')->getRealPath();
+            
+            // Upload image to Cloudinary
+            Cloudder::upload($imagePath, null);
+            
+            // Get the image url and resize the image
+            // One could also set the options in cloudder.php
+            $imageURL = Cloudder::show(Cloudder::getPublicId(), ["crop" => "fill", "width" => 250, "height" => 250]);
+        }
+        
         // Update the currently authenticated user profile 
-        Auth::user()->profile->update($validatedData);
+        Auth::user()->profile->update(array_merge(
+            $validatedData,
+            ['image' => $imageURL]
+        ));
         
         return redirect("/profile/{$user->id}");
     }

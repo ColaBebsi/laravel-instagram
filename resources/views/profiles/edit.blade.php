@@ -8,7 +8,7 @@
                 <div class="card-header">Edit profile</div>
 
                 <div class="card-body">
-                <form method="POST" action="/profile/{{ $user->id }}">
+                    <form method="POST" action="/profile/{{ $user->id }}" enctype="multipart/form-data">
                         @csrf
                         @method("PATCH")
 
@@ -16,12 +16,14 @@
                             <label for="text" class="col-md-4 col-form-label text-md-right">Title</label>
 
                             <div class="col-md-6">
-                                <input id="title" type="text" class="form-control @error('title') is-invalid @enderror" name="title" value="{{ old('title') }}" autocomplete="title" autofocus>
+                                <input id="title" type="text" class="form-control @error('title') is-invalid @enderror"
+                                    name="title" value="{{ old('title') ?? $user->profile->title }}"
+                                    autocomplete="title" autofocus>
 
                                 @error('title')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
                                 @enderror
                             </div>
                         </div>
@@ -30,12 +32,17 @@
                             <label for="text" class="col-md-4 col-form-label text-md-right">Description</label>
 
                             <div class="col-md-6">
-                                <input id="description" type="text" class="form-control @error('description') is-invalid @enderror" name="description" value="{{ old('description') }}" autocomplete="description" autofocus>
+                                <input id="description" 
+                                       type="text"
+                                       class="form-control @error('description') is-invalid @enderror" 
+                                       name="description"
+                                       value="{{ old('description') ?? $user->profile->description }}"
+                                       autocomplete="description" autofocus>
 
                                 @error('description')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
                                 @enderror
                             </div>
                         </div>
@@ -44,12 +51,30 @@
                             <label for="url" class="col-md-4 col-form-label text-md-right">URL</label>
 
                             <div class="col-md-6">
-                                <input id="url" type="text" class="form-control @error('url') is-invalid @enderror" name="url" value="{{ old('url') }}" autocomplete="url">
+                                <input id="url" 
+                                       type="text" 
+                                       class="form-control @error('url') is-invalid @enderror"
+                                       name="url" 
+                                       value="{{ old('url') ?? $user->profile->url }}" 
+                                       autocomplete="url">
 
                                 @error('url')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="image" class="col-md-4 col-form-label text-md-right">Image</label>
+
+                            <div class="col-md-6">
+
+                                <input type="file" class="form-control-file" id="image" name="image">
+
+                                @error('image')
+                                <strong class="text-danger">{{ $message }}</strong>
                                 @enderror
                             </div>
                         </div>

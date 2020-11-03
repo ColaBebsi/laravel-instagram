@@ -3,17 +3,23 @@
 <div class="container">
     <div class="row justify-content-md-center">
         <div class="col-md-3 pl-5">
-            <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20(30).jpg" class="rounded-circle w-100">
+            <img src="{{ $user->profile->image }}" class="rounded-circle w-100">
         </div>
-        <div class="col-md-9 pl-5 pr-5">
+        <div class="col-md-9 pl-5 pr-5 pt-2">
             {{-- <h1>{{ Auth::user()->username }}</h1> --}}
             <div class="d-flex justify-content-between align-items-baseline">
                 <div class="d-flex align-items-center">
                     <h1>{{ $user->username }}</h1>
                 </div>
-                <a href="{{ url("post/create") }}">Create new post</a>
+                
+                @can('update', $user->profile)
+                    <a href="{{ url("post/create") }}">Create new post</a>
+                @endcan
             </div>
-            <a href="{{ url("profile/$user->id/edit") }}">Edit profile</a>
+
+            @can('update', $user->profile)
+                <a href="{{ url("profile/$user->id/edit") }}">Edit profile</a>
+            @endcan
 
             <div class="d-flex mb-4 pt-2">
                 <div class="pr-5"><strong>123</strong> posts</div>
