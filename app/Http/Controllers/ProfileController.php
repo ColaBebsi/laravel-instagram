@@ -52,12 +52,14 @@ class ProfileController extends Controller
             // Get the image url and resize the image
             // One could also set the options in cloudder.php
             $imageURL = Cloudder::show(Cloudder::getPublicId(), ["crop" => "fill", "width" => 250, "height" => 250]);
+
+            $imageArray = ['image' => $imageURL];
         }
         
         // Update the currently authenticated user profile 
         Auth::user()->profile->update(array_merge(
             $validatedData,
-            ['image' => $imageURL]
+            $imageArray ?? []   // Set image to the requested image, if there is no image, set it to an empty array  
         ));
         
         return redirect("/profile/{$user->id}");
