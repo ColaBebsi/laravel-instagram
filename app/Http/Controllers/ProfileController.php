@@ -33,7 +33,8 @@ class ProfileController extends Controller
 
     public function update($id)
     {
-        $id = Auth::id();
+        $user = User::findOrFail($id);
+        // $user->update($request->all());
 
         // Validate request data
         $validatedData = request()->validate([
@@ -43,8 +44,8 @@ class ProfileController extends Controller
         ]);
 
         // Update the currently authenticated user profile 
-        auth()->user()->profile->update($validatedData);
+        $user->profile->update($validatedData);
         
-        return redirect("/profile/{$id}");
+        return redirect("/profile/{$user->id}");
     }
 }
