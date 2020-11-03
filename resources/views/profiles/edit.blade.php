@@ -8,7 +8,7 @@
                 <div class="card-header">Edit profile</div>
 
                 <div class="card-body">
-                <form method="POST" action="/profile/{{ Auth::user()->id }}">
+                <form method="POST" action="/profile/{{ Auth::id() }}">
                         @csrf
                         @method("PATCH")
 
@@ -16,7 +16,7 @@
                             <label for="text" class="col-md-4 col-form-label text-md-right">Title</label>
 
                             <div class="col-md-6">
-                                <input id="title" type="text" class="form-control @error('title') is-invalid @enderror" name="title" value="{{ old('title') }}" required autocomplete="title" autofocus>
+                                <input id="title" type="text" class="form-control @error('title') is-invalid @enderror" name="title" value="{{ old('title') }}" autocomplete="title" autofocus>
 
                                 @error('title')
                                     <span class="invalid-feedback" role="alert">
@@ -30,7 +30,7 @@
                             <label for="text" class="col-md-4 col-form-label text-md-right">Description</label>
 
                             <div class="col-md-6">
-                                <input id="description" type="text" class="form-control @error('description') is-invalid @enderror" name="description" value="{{ old('description') }}" required autocomplete="description" autofocus>
+                                <input id="description" type="text" class="form-control @error('description') is-invalid @enderror" name="description" value="{{ old('description') }}" autocomplete="description" autofocus>
 
                                 @error('description')
                                     <span class="invalid-feedback" role="alert">
@@ -44,7 +44,7 @@
                             <label for="url" class="col-md-4 col-form-label text-md-right">URL</label>
 
                             <div class="col-md-6">
-                                <input id="url" type="url" class="form-control @error('url') is-invalid @enderror" name="url" value="{{ old('url') }}" required autocomplete="url">
+                                <input id="url" type="text" class="form-control @error('url') is-invalid @enderror" name="url" value="{{ old('url') }}" autocomplete="url">
 
                                 @error('url')
                                     <span class="invalid-feedback" role="alert">

@@ -15,12 +15,10 @@
                 <div class="pr-5"><strong>123</strong> followers</div>
                 <div class="pr-5"><strong>123</strong> following</div>
             </div>
-            <div>
-                Profile Title - Lorem, ipsum dolor sit amet consectetur adipisicing elit. Perferendis, laudantium?
-                Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.
-            </div>
-            <div>Profile description</div>
-            <div><a href="#">www.test.test</a></div>
+
+            <div>{{ $user->profile->title }}</div>
+            <div>{{ $user->profile->description }}</div>
+            <div><a href="#">{{ $user->profile->url }}</a></div>
         </div>
     </div>
 </div>
