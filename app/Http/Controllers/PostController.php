@@ -27,7 +27,7 @@ class PostController extends Controller
         // Store image in uploads directory
         $imagePath = request('image')->store('uploads', 'public');
 
-        $resizedImage = Image::make(public_path("storage/{$imagePath}"))->fit(1200, 1200)->save();
+        $resizedImage = Image::make("storage/{$imagePath}")->fit(1200, 1200)->save();
         
         // dd($resizedImage);
 
