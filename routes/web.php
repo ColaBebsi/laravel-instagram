@@ -28,3 +28,4 @@ Route::patch('/profile/{user}', [ProfileController::class, 'update'])->name('pro
 
 // Post
 Route::get('/post/create', [PostController::class, 'create']);
+Route::post('/post', [PostController::class, 'store']);
