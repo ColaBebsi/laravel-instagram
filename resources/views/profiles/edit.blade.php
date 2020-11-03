@@ -8,7 +8,7 @@
                 <div class="card-header">Edit profile</div>
 
                 <div class="card-body">
-                <form method="POST" action="/profile/{{ Auth::id() }}">
+                <form method="POST" action="/profile/{{ $user->id }}">
                         @csrf
                         @method("PATCH")
 

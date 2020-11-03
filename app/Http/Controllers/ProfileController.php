@@ -24,9 +24,9 @@ class ProfileController extends Controller
     {
     }
 
-    public function edit(User $user)
+    public function edit($id)
     {
-        // $user = User::findOrFail($user->id);
+        $user = User::findOrFail($id);
 
         return view('profiles.edit', compact('user'));
     }
