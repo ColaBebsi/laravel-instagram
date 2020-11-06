@@ -3,7 +3,7 @@
 <div class="container">
     <div class="row justify-content-md-center">
         <div class="col-md-3 pl-5">
-            <img src="{{ $user->profile->image }}" class="rounded-circle w-100">
+            <img src="{{ $user->profile->profileImage() }}" class="rounded-circle w-100">
         </div>
         <div class="col-md-9 pl-5 pr-5 pt-2">
             {{-- <h1>{{ Auth::user()->username }}</h1> --}}
