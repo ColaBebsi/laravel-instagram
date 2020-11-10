@@ -13,7 +13,16 @@ class PostController extends Controller
     // Make all routes auth
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth')->except('index');
+    }
+
+    public function index()
+    {
+        $posts = Post::latest()->get();
+
+        // dd($posts);
+
+        return view('posts.index', compact('posts'));
     }
 
     public function create()

@@ -16,9 +16,6 @@ use App\Http\Controllers\PostController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Auth::routes();
 
@@ -30,6 +27,7 @@ Route::get('/profile/{user}/edit', [ProfileController::class, 'edit'])->name('pr
 Route::patch('/profile/{user}', [ProfileController::class, 'update'])->name('profile.update');
 
 // Post
+Route::get('/', [PostController::class, 'index']);
 Route::get('/post/create', [PostController::class, 'create']);
 Route::post('/post', [PostController::class, 'store']);
 Route::get('/post/{post}', [PostController::class, 'show']);
