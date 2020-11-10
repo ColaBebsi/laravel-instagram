@@ -10,7 +10,6 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-    // Make all routes auth
     public function __construct()
     {
         $this->middleware('auth')->except('index');
@@ -18,9 +17,7 @@ class PostController extends Controller
 
     public function index()
     {
-        $posts = Post::latest()->get();
-
-        // dd($posts);
+        $posts = Post::with('user')->latest()->paginate(5);
 
         return view('posts.index', compact('posts'));
     }
@@ -30,23 +27,24 @@ class PostController extends Controller
         return view('posts.create');
     }
 
-    public function store(Request $request) 
+    public function store(Request $request)
     {
-        // Get image path 
-        $imagePath = $request->file('image')->getRealPath();
-
-        // Upload image to Cloudinary
-        Cloudder::upload($imagePath, null);
-        
-        // Get the image url and resize the image
-        // One could also set the options in cloudder.php
-        $imageURL = Cloudder::show(Cloudder::getPublicId(), ["crop" => "fill", "width" => 250, "height" => 250]);
 
         // Validate request 
         $validatedData = request()->validate([
             'caption' => 'required',
             'image' => ['required', 'mimes:jpeg,bmp,jpg,png', 'between:1, 2000']
         ]);
+
+        // Get image path 
+        $imagePath = $request->file('image')->getRealPath();
+
+        // Upload image to Cloudinary
+        Cloudder::upload($imagePath, null);
+
+        // Get the image url and resize the image
+        // One could also set the options in cloudder.php
+        $imageURL = Cloudder::show(Cloudder::getPublicId(), ["crop" => "fill", "width" => 250, "height" => 250]);
 
         // Create post 
         Auth::user()->posts()->create([

@@ -14,8 +14,6 @@ class FollowsController extends Controller
 
     public function store(User $user)
     {
-        // $follows = auth()->user ? auth()->user()->profile->contains($user->id) : false;
-
         return auth()->user()->following()->toggle($user->profile);
     }
 }

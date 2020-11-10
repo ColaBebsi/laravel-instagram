@@ -10,12 +10,6 @@ use JD\Cloudder\Facades\Cloudder;
 
 class ProfileController extends Controller
 {
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function index(User $user)
     {
         $follows = (Auth::user()) ? auth()->user()->following->contains($user->id) : false;
