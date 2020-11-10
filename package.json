@@ -11,7 +11,7 @@
         "heroku-prebuild": "npm install -f",
         "heroku-postbuild": "npm run build"
     },
-    "devDependencies": {
+    "dependencies": {
         "axios": "^0.19",
         "bootstrap": "^4.0.0",
         "cross-env": "^7.0",
