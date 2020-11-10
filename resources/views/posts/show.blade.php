@@ -9,14 +9,38 @@
                 </div>
                 <div class="col-md-7">
                     <div class="card-body">
-                        <h5 class="card-title">{{ $post->caption }}</h5>
-                        <p class="card-text">It's a broader card with text below as a natural lead-in to extra content.
-                            This content is a little longer.</p>
-                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                        <div class="d-flex align-items-center">
+                            <div class="pr-3">
+                                <img src="{{ $post->user->profile->profileImage() }}" class="rounded-circle w-100"
+                                    style="max-width: 40px;">
+                            </div>
+                            <div>
+                                <div class="font-weight-bold">
+                                    <a href="/profile/{{ $post->user->id }}">
+                                        <span class="text-dark">{{ $post->user->username }}</span>
+                                    </a>
+                                    <span class="ml-1 mr-1">•</span>
+                                    <a href="#"> Follow</a>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="card-text pt-3">
+                            <span class="font-weight-bold">
+                                <a href="/profile/{{ $post->user->id }}">
+                                    <span class="text-dark">{{ $post->user->username }}</span>
+                                </a>
+                            </span> {{ $post->caption }}
+                        </p>
+                        <hr>
+                        <p class="card-text">
+                            It's a broader card with text below as a natural lead-in to extracontent. This content is a
+                            little longer.
+                        </p>
+                        {{-- <p class="card-text"><small class="text-muted">Created {{$post->created_at}} </small></p> --}}
                     </div>
                 </div>
-            </div>  {{-- row no-gutters --}}
-        </div>  {{-- card mb-3 --}}
-    </div>  {{-- row justify-content-md-center --}}
-</div>  {{-- container --}}
+            </div> {{-- row no-gutters --}}
+        </div> {{-- card mb-3 --}}
+    </div> {{-- row justify-content-md-center --}}
+</div> {{-- container --}}
 @endsection
