@@ -12,20 +12,20 @@
                     <h1>{{ $user->username }}</h1>
                     <follow-button user-id={{ $user->id }} follows={{ $follows }}></follow-button>
                 </div>
-                
+
                 @can('update', $user->profile)
-                    <a href="{{ url("post/create") }}">Create new post</a>
+                <a href="{{ url("post/create") }}">Create new post</a>
                 @endcan
             </div>
 
             @can('update', $user->profile)
-                <a href="{{ url("profile/$user->id/edit") }}">Edit profile</a>
+            <a href="{{ url("profile/$user->id/edit") }}">Edit profile</a>
             @endcan
 
             <div class="d-flex mb-4 pt-2">
-                <div class="pr-5"><strong>123</strong> posts</div>
-                <div class="pr-5"><strong>123</strong> followers</div>
-                <div class="pr-5"><strong>123</strong> following</div>
+                <div class="pr-5"><strong>{{ $user->posts->count() }}</strong> posts</div>
+                <div class="pr-5"><strong>{{ $user->profile->followers->count() }}</strong> followers</div>
+                <div class="pr-5"><strong>{{ $user->following->count() }}</strong> following</div>
             </div>
 
             <div>{{ $user->profile->title ?? 'N/A' }}</div>
@@ -36,11 +36,11 @@
 
     <div class="row pt-5">
         @foreach ($user->posts as $post)
-            <div class="col-md-4 pb-4">
-                <a href="/post/{{ $post->id }}">
+        <div class="col-md-4 pb-4">
+            <a href="/post/{{ $post->id }}">
                 <img src="{{ $post->image }}" alt="{{ $post->caption }}" class="w-100">
-                </a>
-            </div>
+            </a>
+        </div>
         @endforeach
     </div>
 
